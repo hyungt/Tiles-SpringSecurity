@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sample.dao.UserDAO">
+	<select id="getUserByUsername" parameterType="string" resultType="User">
+		SELECT 
+			USER_NO		AS "no",
+			USER_ID		AS "id",
+			USER_PWD	AS "pwd",
+			USER_NAME	AS "name"
+		FROM
+			TB_USER_H
+		WHERE
+			USER_ID = #{data}
+	</select>
+	
+	<select id="getUserByNo" parameterType="int" resultType="User">
+		SELECT
+			USER_NO		AS "no",
+			USER_ID		AS "id",
+			USER_PWD	AS "pwd",
+			USER_NAME	AS "name"
+		FROM
+			TB_USER_H
+		WHERE
+			USER_NO = #{value}
+	</select>
+	
+	<select id="getRolesByNo" parameterType="int" resultType="string">
+		SELECT
+			ROLE_NAME
+		FROM
+			TB_ROLES_H
+		WHERE
+			USER_NO = #{value}
+	</select>
+	
+	<insert id="addUser" parameterType="User">
+		INSERT INTO TB_USER_H
+			(USER_ID, USER_PWD, USER_NAME)
+		VALUES
+			(#{id}, #{pwd}, #{name})
+	</insert>
+</mapper>
